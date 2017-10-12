@@ -2,16 +2,7 @@
 Determining which mushrooms are edible or poisonous with an artifical neural network. 
 
 Preprocessing:
-For the mushroom dataset there were a few steps of pre-processing I had to do before I was able to work with the data. I removed the veil-type variable since it was of just one class and might end up skewing my results. I created dummy variables so each feature could be tested more easily and that ended up with me having 
-For this dataset I found the linear kernel most useful. While using the linear kernel I received the results below. 
-
-As visible. I had 0 incorrectly predicted values. While there were some false positives, in the context of finding out if a mushroom is poisonous or not. 
-Radial Kernel: 49% accuracy
-
-
-Polynomial Kernel:48% accuracy
-
-Here you can see the bar chart of edible vs poisonous mushrooms with my radial and polynomial kernels. Almost the exact same graph).
+For the mushroom dataset there were a few steps of pre-processing I had to do before I was able to work with the data. I removed the veil-type variable since it was of just one class and might end up skewing my results. I created dummy variables so each feature could be tested more easily.
  
 NEURAL NETWORK
 
