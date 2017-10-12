@@ -1,0 +1,64 @@
+mushroom <- read.csv2(url("http://archive.ics.uci.edu/ml/machine-learning-databases/mushroom/agaricus-lepiota.data"),
+                  sep = ",",
+                  col.names = c("class","cap-shape","cap-surface","cap-color",
+                                "bruises","odor","gill-attachment","gill-spacing",
+                                "gill-size","gill-color","stalk-shape","stalk-root",
+                                "stalk-surface-above-ring","stalk-surface-below-ring",
+                                "stalk-color-above-ring","stalk-color-below-ring",
+                                "veil-type","veil-color","ring-number","ring-type",
+                                "spore-print-color","population","habitat"),
+                  header = FALSE)
+View(mushroom)
+str(mushroom)
+
+#Installing required libraries
+library(caret)
+library(neuralnet)
+library(nnet)
+library(devtools)
+source_url('https://gist.githubusercontent.com/fawda123/7471137/raw/466c1474d0a505ff044412703516c34f1a4684a5/nnet_plot_update.r')
+
+
+#remove veil.type
+mushroom <- subset(mushroom, select = -veil.type)
+str(mushroom)
+
+#Create dummy variables 
+split=0.7
+idx <- createDataPartition(mushroom$class, p=split, list=FALSE)
+
+mushDummy <- subset(mushroom, select = -class)
+mushDummyIdx <- dummyVars(~., data = mushDummy, sep=".")
+mushDummy <- data.frame(predict(mushDummyIdx, mushDummy))
+ncol(mushDummy)
+mushDummy$class <- mushroom$class
+ncol(mushDummy)
+train_set <- mushDummy[idx,]
+test_set <- mushDummy[-idx,]
+test_labels <- subset(test_set, select = class)
+test_set <- subset(test_set, select = -class)
+str(train_set)
+
+#Features
+feats <- names(train_set)
+
+# Concatenate strings
+f <- paste(feats,collapse=' + ')
+f <- paste('class ~',f)
+
+# Convert to formula
+f <- as.formula(f)
+
+#100 Iterations, 2 hidden layers
+ann.model = nnet(class ~., data = train_set, size =2, range = .1, decay = 5e-4, maxit = 100)
+ann.pred = predict(ann.model, test_set, type="class")
+plot.nnet(ann.model)
+#100 Iterations 3 hidden layers
+ann.model2 = nnet(class ~., data = train_set, size =3, range = .1, decay = 5e-4, maxit = 100)
+ann.pred2 = predict(ann.model2, test_set, type="class")
+plot.nnet(ann.model2)
+
+#100 Iterations 4 hidden layers
+ann.model3 = nnet(class ~., data = train_set, size =4, range = .1, decay = 5e-4, maxit = 100)
+ann.pred3 = predict(ann.model3, test_set, type="class")
+plot.nnet(ann.model3)
