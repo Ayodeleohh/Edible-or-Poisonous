@@ -1,5 +1,5 @@
 # Edible-or-Poisonous
-Determining which mushrooms are edible or poisonous with an artifical neural network. 
+Why the fuck would you eat a wild mushroom to begin with? Just don't.
 
 Preprocessing:
 For the mushroom dataset there were a few steps of pre-processing I had to do before I was able to work with the data. I removed the veil-type variable since it was of just one class and might end up skewing my results. I created dummy variables so each feature could be tested more easily.
