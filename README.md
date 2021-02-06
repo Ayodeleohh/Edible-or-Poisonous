@@ -1,5 +1,6 @@
 # Edible-or-Poisonous
-Why the fuck would you eat a wild mushroom to begin with? Just don't.
+100% of mushrooms are inedible. Ta-da didn't even need to build a model!
+
 
 Preprocessing:
 For the mushroom dataset there were a few steps of pre-processing I had to do before I was able to work with the data. I removed the veil-type variable since it was of just one class and might end up skewing my results. I created dummy variables so each feature could be tested more easily.
